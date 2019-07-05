@@ -1,0 +1,6 @@
+[
+    {"deptno":"10","dname":"회계부"}
+    ,{"deptno":"20","dname":"인사과"}
+    ,{"deptno":"30","dname":"영업부"}
+    ,{"deptno":"40","dname":"운영부"}
+]

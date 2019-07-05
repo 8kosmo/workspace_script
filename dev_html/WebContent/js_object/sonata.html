@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>생성자 함수와 객체활용</title>
+    <script>
+        var speed = 0;
+        var carName = "";
+        var wheelNum = 0;
+        var carColor = "#000000";
+        function Sonata(){
+            this.speed = 50;
+            this.carName = "2019년형 소나타";
+            this.wheelNum = 4;
+        }
+        function speedUp(){
+            speed = speed+1;
+            console.log("speedUp 호출 성공");
+        }
+        function Tivoli(speed,carName,wheelNum,carColor){
+            this.speed = speed;
+            this.carName = carName;
+            this.wheelNum = wheelNum;
+            this.carColor = carColor;
+            this.method = speedUp;
+            this.method2 = function(){
+                document.write("익명 함수를 실행");
+            }            	
+        }
+    </script>
+</head>
+<body>
+    <script>
+        var myCar = new Sonata();
+        var herCar = new Sonata();
+        var himCar = new Tivoli("30","티볼리","4","red");
+        himCar.method();
+        himCar.method2();
+        document.write("speedUp 호출 후 ===>",himCar.speed);
+        //himCar["carName"] =>himCar.carName
+        for(pro in himCar){
+            document.write(pro+"="+himCar[pro]+"<br>");
+        }
+        herCar.speed = 100;
+        document.write("1.내자동차는 ",myCar.carName,"<br>");
+        document.write("2.현재 속도는 ",myCar.speed,"<br>");
+        document.write("3.그녀의 속도는 ",herCar.speed,"<br>");
+        document.write("4.그 남자의 자동차는 ",himCar.carName)
+    </script>
+</body>
+</html>

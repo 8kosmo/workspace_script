@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- 
+    html태그 경우 같은 이름이 두 개 이상이면 자동으로 배열전환됨.
+    태그 이름이 한개일 때는 배열이 아니다.
+    반드시 두개 이상일 때만 배열로 접근가능하다.
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>배열활용 연습</title>
+    <script>
+        function clearAll(){
+            for(var i=0;i<document.f_list.check.length;i++){
+                if(document.f_list.check[i].checked ==1){
+                    document.f_list.check[i].checked=0;
+                }
+            }
+        }
+        function checkboxAll(){
+            if(document.f_list.checkAll.checked==1){
+                clearAll();
+                for(var j=0;j<document.f_list.check.length;j++){
+                    document.f_list.check[j].checked=1;
+                }
+            }else{
+                for(var j=0;j<document.f_list.check.length;j++){
+                    document.f_list.check[j].checked=0;
+                }
+             }
+        }
+    </script>
+</head>
+<body>
+    <table border="1">
+        <form name="f_list">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="checkAll" name="checkAll" onclick="checkboxAll()"></th>
+                <th>선거활동</th>
+                <th>주소</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox" id="check" name="check"></td>
+                <td>최종현</td>
+                <td>일산서구</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="check" name="check"></td>
+                <td>김현미</td>
+                <td>일산동구</td>
+            </tr>
+        </tbody>
+        </form>
+    </table>
+</body>
+</html>

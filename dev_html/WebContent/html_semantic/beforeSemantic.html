@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- 
+    시맨틱 태그는 모두 div태그와 같은 기능을 수행하는 태그임.
+    검색엔진이나 그 이외의 기계적인 동작들이 웹페이지에 쉽게
+    이해 할 수 있도록 제공됨.
+    html5이전에는 화면레이아웃에 table태그를 주로 사용함.
+    html5로 오전서 div태그를 주로 사용 -> ajax기술지원 - div태그와 동일하지만 더 직관적으로 표현하기위해 semantic이 나옴
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML5 이전의 레이아웃 구성</title>
+<!-- 스타일시트(CSS), Javascript코드 -->
+</head>
+<body>
+    <!--페이지헤더부분-->
+    <div>
+        <h1>HTML5 header</h1>
+    </div>
+    <!--페이지메뉴부분-->
+    <div>
+        <ul>
+            <li><a href="../html_list/listTag.html">Menu(리스트태그) - 1</a>
+            <li><a href="../html_day2/innerHTMLTest.html">Menu(innerHTML) - 1</a>
+            <li><a href="../html_day2/bodyTag.html">Menu(바디태그) - 1</a>
+        </ul>
+    </div>
+    <!--시맨틱 웹-->
+    <!--작성된 웹 그대로 출력됨-->
+    <div>
+        <pre>
+            시맨틱 태그는 모두 div태그와 같은 기능을 수행하는 태그임.
+            검색엔진이나 그 이외의 기계적인 동작들이 웹페이지에 쉽게
+            이해 할 수 있도록 제공됨.
+            html5이전에는 화면레이아웃에 table태그를 주로 사용함.
+            html5로 오전서 div태그를 주로 사용 -> ajax기술지원
+        </pre>
+    </div>
+    <!--주소-->
+    <!--div태그와 span태그는 공간을 분할하는 태그(시각적인 변화가 없다)-->
+    <div>
+        <!--CSS에서 주로 사용함(부분적으로 디자인을 변경, 지정해 줄때)-->
+        <span>서울특별시 금천구 가산동</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <script>
+        function search(){
+
+        }
+        function hangulCheck(temp){
+            var cho = [
+                        "ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ",
+                        "ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"
+                        ]
+            var result = "";//초성 뽑아낸 결과를 담을 변수
+            for(var i=0;i<temp.length;i++){
+                var code;
+                code = 공식;
+                //temp.charCodeAt(i);
+                if(){
+                    result+="";
+                }
+            }
+            alert("사용자가 입력한값:"+temp.value);
+            //console.log("hangulCheck()호출 : "+document.getElementById("word").value);
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="word" name="word" onkeyup="hangulCheck(this)">
+<button onclick="search()">조회</button>
+</body>
+</html>

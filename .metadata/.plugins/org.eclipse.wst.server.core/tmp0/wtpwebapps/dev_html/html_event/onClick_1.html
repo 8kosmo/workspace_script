@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Event - onClock</title>
+</head>
+<body>
+    <h1 id="header">Click</h1>
+    <script type="text/javascript">
+        window.onload = function(){
+            //h1태그 정보를 담을 변수선언
+            var header = document.getElementById("header");
+            //이벤트연결
+            header.onclick = function(){
+                alert("클ㄹㄹㄹㄹㄹㄹ릭");
+                //이벤트 제거하고 싶다면...
+                header.onclick = null;//한번만 alert하고 싶다면 추가
+            }
+        }
+    </script>
+</body>
+</html>

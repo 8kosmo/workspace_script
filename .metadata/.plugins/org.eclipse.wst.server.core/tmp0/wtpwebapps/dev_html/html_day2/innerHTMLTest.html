@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>InnerHTML에 관해서</title>
+<!-- 
+mime type
+main type text/javascript, text/plain, text/html
+sub type
+ -->
+<style type ="text/css">
+div{display:block;
+    width : 500px;
+    height: 300px;
+    background-color : red;
+}
+span{display:inline;
+    width:300px;
+    height:200px;
+    background-color : blueviolet;
+}
+</style>
+<script type="text/javascript">
+    var msg="<table border='1' width='300px' height='100px'>";
+        msg+="<tr><td>자바</td></tr>";
+        msg+="<tr><td>자바의 정석</td></tr>";
+        msg+="<tr><td>자바를 잡아라</td></tr>";
+        msg+="</table>";
+    function test(){
+        document.getElementById("d_msg").innerHTML = msg;
+    }
+</script>
+</head>
+<body>
+    <!-- 인라인속성과 블록속성 -->
+    aaa
+    <div id="d_msg"><Font color = "White" size = "20">빨간맛</Font></div>
+    aaa
+    <span><Font color = "White" size = "20"> PUPLE EYES</Font></span>
+    bbb
+    <input type="button" value="테스트" onClick="test()">
+</body>
+</html>

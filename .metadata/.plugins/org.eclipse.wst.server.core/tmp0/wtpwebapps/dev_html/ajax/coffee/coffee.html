@@ -1,0 +1,197 @@
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Ajax-powered Coffee Maker</title>
+  <link rel="stylesheet" type="text/css" href="coffee.css?12" />
+  <script language="javascript">
+       var request1 = createRequest();
+       var request2 = createRequest();
+       function createRequest(){
+              var xhrObject = null;
+              try {
+                     xhrObject = new XMLHttpRequest(); 
+              }catch(trymicrosoft) {
+                     xhrObject = null;
+              }
+              if(xhrObject==null){ 
+                     alert("비동기 통신객체 생성 실패!!!");
+              }else{
+                     return xhrObject;
+              }
+       }
+       function getSize(){ //배열로전환했을때 아래 도큐먼트를 뭔가로 받아야 한다.
+              var sizeGroup = document.forms[0].size;//폼태그 버튼의 갯수 3개..컵사이즈를 라디오버튼 처리 하였고, 
+              //그 버튼이 같은 이름이므로 배열로 전환, 위 도큐먼트가 배열이 되는것.
+              for(var i =0;i<sizeGroup.length;i++){
+                     if(sizeGroup[i].checked==true){
+                     return sizeGroup[i].value;
+                     }
+              }
+       }
+       function getBeverage(){
+              var beverageGroup = document.forms[0].beverage;//폼태그 버튼의 갯수 3개..컵사이즈를 라디오버튼 처리 하였고, 
+              //그 버튼이 같은 이름이므로 배열로 전환, 위 도큐먼트가 배열이 되는것.
+              for(var i=0;i<beverageGroup.length;i++){
+                     if(beverageGroup[i].checked==true){
+                            return beverageGroup[i].value;
+                     }
+              }
+       }
+       function sendRequest(xhrObject,url){
+              xhrObject.open("GET",url,true);
+              xhrObject.onreadystatechange = serveDrink;
+              xhrObject.send(null);
+       }
+       function serveDrink(){
+              if(request1.readyState==4){ //서버응답이 완료일때
+                     if(request1.status==200){//응답이 정상적으로 내려왔을때
+                     //응답을 받아오기 ex) 1김유신
+                     var res = request1.responseText;
+                     //응답에서 나온 정보를 2개로 나누어야 함.
+                     var machine = res.substring(0,1);
+                     var name = res.substring(1,res.length);
+                            if(machine =='1'){ //이 친구가 실행된것은 커피가 나왔다는 의미 이므로 name을 Idle로 다시 바꾸어 주어야 함.
+                                   var coffeemaker1 = document.getElementById("coffmaker1Status");
+                                   replaceText(coffeemaker1,"Idle");
+                            }
+                            else{ //2번 머신인 경우
+                                   var coffeemaker1 = document.getElementById("coffeemaker2-status");
+                                   replaceText(coffeemaker2,"Idle");
+                            }
+                     alert(name+", your coffee is ready");
+                     request1 = createRequest();
+                     } /////////end of 200
+              } ///////////////end of 4
+              else if(request2.readyState==4){
+                     if(request2.status==200){
+                            //응답을 받아오기 ex) 2애플//손님에 대한 정보를 닉네임으로 불러준다면..
+                            var res = request2.responseText;
+                            var machine = res.substring(0,1);
+                            var name = res.substring(1,res.length);
+                                   if(machine=="1"){
+                                          var coffeemaker1 = document.getElementById("coffmaker1Status");
+                                          replaceText(coffeemaker1,"Idle");             
+                                   }
+                                   else{
+                                          var coffeemaker2 = document.getElementById("coffeemaker2-status");
+                                          replaceText(coffeemaker2,"Idle");
+                                   }
+                            alert(name+", your coffee is ready");
+                            request2 = createRequest();
+                     }
+              }
+       }
+       function orderCoffee(){
+              //주문자 이름정보 코드가 길어지면 오타찾기 힘듬..단위테스트는 바로바로
+              var name = document.getElementById("name").value;
+              var size=  getSize();
+              var beverage =  getBeverage();
+              alert(name+ " , "+size+" , " +beverage);
+              //첫번째 머신의 아이디값 가져오기
+              var coffeemaker1 = document.getElementById("coffmaker1Status");
+              var status = getText(coffeemaker1);
+              if(status =="Idle"){
+                     replaceText(coffeemaker1,name+"님의 "+beverage+"("+size+")"+"를 준비중입니다.");
+                     //커피 주문서에 작성된 내용을 초기화함.
+                     document.forms[0].reset();
+                     //커피를 내리는 시늉을 하는 jsp페이지의 url정보를 담음.
+                     var url = "coffeeMaker.jsp?coffeemaker=1&name="+name+"&timestamp="+new Date().getTime();//인터셉트 되기에 시간정보도 담아준다.
+                     sendRequest(request1,url);
+              }
+              else{
+                     //두번째 머신의 아이디값 가져오기
+                     var coffeemaker2 = document.getElementById("coffeemaker2-status");
+                     var status = getText(coffeemaker2);
+                     if(status =="Idle"){
+                            replaceText(coffeemaker2,name+"님의 "+beverage+"("+size+")"+"를 준비중입니다.");
+                            //두번째 주문이 처리가 된 경우
+                            document.forms[0].reset();
+                            var url = "coffeeMaker.jsp?coffeemaker=2&name="+name+"&timestamp="+new Date().getTime();
+                            sendRequest(request2,url);
+                     }else{//두 대가 다 일하는 경우
+                            alert("Sorry! both coffee makers are busy. \n"+"Try again later.");
+                     }
+              } 
+       }  
+       function clearText(el){
+              if(el!=null){ //뭔가 가리키는것이 있다는 뜻
+                     if(el.childNodes){//0만 false
+                            for(var i=0;i<el.childNodes.length;i++){//자식노드안에 또 자식노드, 태그안에 태그
+                                   var childNode = el.childNodes[i]; //같은이름이 두개이상이면 배열로 전환됨
+                                   el.removeChild(childNode);
+                            }
+                     }
+              }
+       }      
+       function replaceText(el,text){
+              if(el!=null){
+                     clearText(el);
+                     var newNode = document.createTextNode(text);//12
+                     el.appendChild(newNode);
+              }
+       }
+       function getText(el){ //el => $('#id')
+              var text="";
+              if(el!=null){ 
+                     if(el.childNodes){ 
+                            for(var i=0;i<el.childNodes.length;i++){
+                                   var childNode = el.childNodes[i];
+                                   if(childNode.nodeValue!=null){
+                                          text = text+childNode.nodeValue;
+                                   }
+                            }
+                     }
+              }
+              return text;
+       }       
+         
+  </script>
+ </head>
+ <body>
+   <div id="header">
+    <h1>Ajax-powered Coffee Maker</h1>
+   </div>
+  <div id="wrapper">
+   <div id="coffeemaker1">
+    <h2>Coffee Maker #1</h2>
+    <p><img src="images/CoffeeMaker1.gif" alt="Coffee Maker #1" /></p>
+    <div id="coffmaker1Status">Idle</div>
+   </div>
+
+   <div id="coffeeorder">
+    <p><img src="images/coffeeMugWithBeans.jpg" alt="Coffee Pot 1" /></p>
+    <h2>Place your coffee order here:</h2>
+    <div id="controls1">
+     <form action="#">
+      <p>Name: <input type="text" name="name" id="name" /></p>
+      <h3>Size</h3>
+      <p> 
+       <input type="radio" name="size" 
+              value="small" checked="true">Small</input>&nbsp;&nbsp;
+       <input type="radio" name="size" value="medium">Medium</input>&nbsp;&nbsp;
+       <input type="radio" name="size" value="large">Large</input>
+      </p>
+      <h3>Beverage</h3>
+      <p> 
+       <input type="radio" name="beverage" 
+              value="mocha" checked="true">Mocha</input>&nbsp;&nbsp;
+       <input type="radio" name="beverage" 
+              value="latte">Latte</input>&nbsp;&nbsp;
+       <input type="radio" name="beverage" 
+              value="cappucino">Cappucino</input>
+      </p>
+      <p>
+       <input type="button" onClick="orderCoffee()" value="Order Coffee" />
+      </p>
+     </form>
+    </div>
+   </div>
+   <div id="coffeemaker2">
+    <h2>Coffee Maker #2</h2>
+    <p><img src="images/CoffeeMaker2.gif" alt="Coffee Maker #2" /></p>
+    <div id="coffeemaker2-status">Idle</div>
+   </div>
+   <p id="clear"></p>
+  </div>
+ </body>
+</html>

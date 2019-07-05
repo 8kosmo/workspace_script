@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="/demo/demo.css">
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function(){
+            $("#cb_dname").combobox({
+                // data: [
+		        //          {detpno:'10', dname:'ACCOUNTING'}
+                //         ,{detpno:'20', dname:'RESEARCH'}
+                //         ,{detpno:'30', dname:'SALES'}
+                //         ,{detpno:'40', dname:'OPERATIONS'}
+                //         ]
+                url:'../easyui_layout/jsonDept.json'
+                ,valueField:'detpno'
+                ,textField:'dname'
+            });
+        });    
+    </script>
+<form id="f_combo">
+    <input class="easyui-combobox" id="cb_dname" name="cb_dname">
+    <button onclick="send()">전송</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery코드로 변경 - 매초마다 갱신처리</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <h1 id="news"></h1>
+    <h1 id="news2"></h1>
+    <script type="text/javascript">
+    //$는 jquery()대신 사용되는 예약어
+    //만일 서로 다른 javascript오픈소스를 사용할 경우 그 기호가 겹치거나 하여 충돌이 일어날 수 있다.
+    //해결방법
+    // $.noConflict();
+    // var J = jQuery;
+        $(document).ready(function(){
+            $("#news").html("<font color='red'>테스트</font>");
+            $("#news2").text("<b>테스트</b>");
+            // J("#news2").text("<b>테스트</b>");
+        });
+    </script>
+</body>
+</html>
