@@ -14,6 +14,8 @@
 <link rel="stylesheet" type="text/css" href="/demo/demo.css">
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
     function Login(){
         // var u_id = $("#tb_id").val();
@@ -70,9 +72,20 @@
 <!--------------------------------------- 로그인 화면 시작 -------------------------------------->
                                                     <div id="d_Login">
                                                     <table>
-                                                        <tr><td><input id="tb_id" class="easyui-textbox" prompt="ID" data-options="iconCls:'icon-man'" style="width:170px"></td></tr>
-                                                        <tr><td><input id="pd_pw" class="easyui-passwordbox" prompt="Password" iconWidth="28" style="width:170px"></td></tr>
-                                                        <tr><td><a id="btn" href="javascript:Login()" class="easyui-linkbutton" data-options="width:170">로그인</a></td></tr>
+                                                        <tr><td><input id="tb_id" class="easyui-textbox" prompt="ID" data-options="iconCls:'icon-man'" style="width:185px"></td></tr>
+                                                        <tr><td><input id="pd_pw" class="easyui-passwordbox" prompt="Password" iconWidth="28" style="width:185px"></td></tr>
+                                                        <tr><td><a id="btn" href="javascript:Login()" class="easyui-linkbutton" data-options="width:185">로그인</a></td></tr>
+<!-------------------------------------- 네이버아이디로로그인 버튼 노출 영역 -------------------------------------->
+                                                        <tr><td><div id="naver_id_login"></div></tr></td>
+                                                            <script type="text/javascript">
+                                                                var naver_id_login = new naver_id_login("gGtI7QVFF_7VqiOkx5Po", "http://localhost:8000/easyui_layout/layout_2.html");
+                                                                var state = naver_id_login.getUniqState();
+                                                                naver_id_login.setButton("green", 3,40);
+                                                                naver_id_login.setDomain("http://localhost:8000/easyui_layout/layout_2.html");
+                                                                naver_id_login.setState(state);
+                                                                naver_id_login.setPopup();
+                                                                naver_id_login.init_naver_id_login();
+                                                            </script>
                                                     </table>
                                                     </div>
 <!--------------------------------------- 로그인 화면 끝 ---------------------------------------->
@@ -80,7 +93,7 @@
                                                     <div id="d_Logout">
                                                     <table>
                                                         <tr><td><span id="s_name">Guest</span>님 환영합니다</td></tr>
-                                                        <tr><td><a id="btn" href="javascript:Logout()" class="easyui-linkbutton" data-options="width:170">로그아웃</a></td></tr>
+                                                        <tr><td><a id="btn" href="javascript:Logout()" class="easyui-linkbutton" data-options="width:185">로그아웃</a></td></tr>
                                                     </table>
                                                     </div>
 <!--------------------------------------- 로그아웃 화면 끝 -------------------------------------->
